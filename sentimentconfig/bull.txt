@@ -14,3 +14,5 @@ pendant
 train
 green
 rising
+flag
+bull

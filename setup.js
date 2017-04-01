@@ -3,6 +3,8 @@ var request = require('request');
 var db = require('diskdb');
 
 db.connect('./data', ['currencies']);
+db.currencies.remove(); 
+db.connect('./data', ['currencies']);
 
 var options = {
     url: 'https://poloniex.com/public?command=returnCurrencies',
@@ -16,7 +18,8 @@ getCurrencies = (error, response, body) => {
             db.currencies.save({
                 shortHand: x,
                 lowerCase: x.toLowerCase(),
-                fullName: info[x].name.toLowerCase()
+                fullName: info[x].name.toLowerCase(),
+                sentiment: 0
             })
         }
 

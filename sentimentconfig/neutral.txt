@@ -6,3 +6,6 @@ volume
 horizontal
 boring
 lol
+segwit
+pow
+pos

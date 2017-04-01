@@ -20,7 +20,7 @@ onlyUnique = (value, index, self) => {
 
 colorStrings = (words) => {
     var sentimentScore = sentiment(words.toString()).score;
-    var wordsArray = words.split(/[\s,.\/?!]+/);
+    var wordsArray = words.split(/[\s,.\/?!+-]+/);
     var sentence = '';
     var sentenceCurrencies = [];
     wordsArray.forEach(word => {
@@ -46,13 +46,23 @@ colorStrings = (words) => {
     if (sentenceCurrencies.length) {
         if (sentimentScore < 0) {
             sentence += ' ( '.red + sentenceCurrencies.filter(onlyUnique).join(' ').red + ' ' + sentimentScore.toString().red + ' )'.red;
+            storeSentiment(sentenceCurrencies);
         } else if (sentimentScore > 0) {
             sentence += ' ( '.green + sentenceCurrencies.filter(onlyUnique).join(' ').green + ' +'.green + sentimentScore.toString().green + ' )'.green;
+            storeSentiment(sentenceCurrencies);
         }
     }
     return sentence;
 }
 
+storeSentiment = (sentenceCurrencies) => {
+    sentenceCurrencies.forEach(c => {
+        var previousSentiment = db.currencies.findOne({ lowerCase: c }).sentiment;
+        db.currencies.update({ lowerCase: c }, { sentiment: +previousSentiment + +sentimentScore });
+        previousSentiment = db.currencies.findOne({ fullName: c }).sentiment;
+        db.currencies.update({ fullName: c }, { sentiment: +previousSentiment + +sentimentScore });
+    })
+}
 getCurrencyNamesArray = () => {
     var names = [];
     db.currencies.find().forEach(c => {
@@ -63,7 +73,7 @@ getCurrencyNamesArray = () => {
 }
 
 normalizeName = (name) => {
-    name = name.grey + ':   '.grey;
+    name = name.magenta + ':   '.grey;
     return name;
 }
 
