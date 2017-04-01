@@ -12,3 +12,5 @@ mooning
 triangle
 pendant
 train
+green
+rising

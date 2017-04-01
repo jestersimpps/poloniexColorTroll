@@ -6,3 +6,6 @@ sell
 crash
 drop
 dropping
+red
+fork
+dead

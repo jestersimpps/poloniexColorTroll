@@ -2,8 +2,14 @@ var autobahn = require('autobahn');
 var colors = require('colors');
 var request = require('request');
 var sentiment = require('sentiment');
+var JsonDB = require('node-json-db');
+var loki = require('lokijs');
 
 fs = require('fs');
+var db = new loki('data.json');
+var currencies = db.getCollection('currencies');
+
+console.log(currencies);
 
 
 var bull = fs.readFileSync(`./sentimentconfig/bull.txt`, 'utf8').split(/\r?\n/);;
@@ -41,22 +47,12 @@ colorStrings = (words) => {
     })
     if (sentenceCurrencies.length) {
         if (sentimentScore < 0) {
-            sentence += ' ('.red + sentenceCurrencies.filter(onlyUnique).join(' ').red + sentimentScore.toString().red + ' )'.red;
+            sentence += ' ( '.red + sentenceCurrencies.filter(onlyUnique).join(' ').red + ' ' + sentimentScore.toString().red + ' )'.red;
         } else if (sentimentScore > 0) {
-            sentence += ' ('.green + sentenceCurrencies.filter(onlyUnique).join(' ').green + ' +'.green + sentimentScore.toString().green + ' )'.green;
-        } 
-    }
-    return sentence;
-}
-
-getCurrencies = (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body);
-        for (var x in info) {
-            currencies.push(x.toLowerCase());
-            currencies.push(info[x].name.toLowerCase());
+            sentence += ' ( '.green + sentenceCurrencies.filter(onlyUnique).join(' ').green + ' +'.green + sentimentScore.toString().green + ' )'.green;
         }
     }
+    return sentence;
 }
 
 normalizeName = (name) => {
@@ -64,20 +60,11 @@ normalizeName = (name) => {
     return name;
 }
 
-
 var wsuri = "wss://api.poloniex.com";
 var connection = new autobahn.Connection({
     url: wsuri,
     realm: "realm1"
 });
-
-var currencies = [];
-var request = require('request');
-var options = {
-    url: 'https://poloniex.com/public?command=returnCurrencies',
-};
-
-request(options, getCurrencies);
 
 connection.onopen = (session) => {
     trollboxEvent = (args, kwargs) => {
