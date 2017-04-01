@@ -1,6 +1,7 @@
 var autobahn = require('autobahn');
 var colors = require('colors');
 var request = require('request');
+
 fs = require('fs');
 
 
@@ -10,14 +11,14 @@ var bear = fs.readFileSync(`./sentimentconfig/bear.txt`, 'utf8').split(/\r?\n/);
 var neutral = fs.readFileSync(`./sentimentconfig/neutral.txt`, 'utf8').split(/\r?\n/);
 
 
-function colorStrings(words) {
+colorStrings = (words) => {
     var wordsArray = words.split(/[\s,.\/?!]+/);
     var sentence = '';
     wordsArray.forEach(word => {
         if (neutral.includes(word.toLowerCase())) {
             sentence += word.blue;
         }
-        if (bull.includes(word.toLowerCase())) {
+        else if (bull.includes(word.toLowerCase())) {
             sentence += word.green;
         }
         else if (bear.includes(word.toLowerCase())) {
@@ -33,7 +34,7 @@ function colorStrings(words) {
     return sentence;
 }
 
-function callback(error, response, body) {
+callback = (error, response, body) => {
     if (!error && response.statusCode == 200) {
         var info = JSON.parse(body);
         for (var x in info) {
@@ -43,6 +44,10 @@ function callback(error, response, body) {
     }
 }
 
+normalizeName = (name) => {
+    name = name.grey + ':   '.grey;
+    return name;
+}
 
 
 var wsuri = "wss://api.poloniex.com";
@@ -59,9 +64,13 @@ var options = {
 
 request(options, callback);
 
-connection.onopen = function (session) {
-    function trollboxEvent(args, kwargs) {
-        console.log(args[2].grey + ': '.grey + colorStrings(args[3]));
+connection.onopen = (session) => {
+    trollboxEvent = (args, kwargs) => {
+        var troll = {
+            name: normalizeName(args[2]),
+            message: colorStrings(args[3])
+        };
+        console.log(troll.name + troll.message);
     }
     session.subscribe('trollbox', trollboxEvent);
 }
