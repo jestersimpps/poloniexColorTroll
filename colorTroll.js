@@ -2,15 +2,13 @@ var autobahn = require('autobahn');
 var colors = require('colors');
 var request = require('request');
 var sentiment = require('sentiment');
-var JsonDB = require('node-json-db');
-var loki = require('lokijs');
+var db = require('diskdb');
+var fs = require('fs');
 
-fs = require('fs');
-var db = new loki('data.json');
-var currencies = db.getCollection('currencies');
+db.connect('./data', ['currencies']);
 
-console.log(currencies);
 
+var currencies = db.currencies.find();
 
 var bull = fs.readFileSync(`./sentimentconfig/bull.txt`, 'utf8').split(/\r?\n/);;
 var bear = fs.readFileSync(`./sentimentconfig/bear.txt`, 'utf8').split(/\r?\n/);
@@ -37,7 +35,7 @@ colorStrings = (words) => {
             sentence += word.red;
             sentimentScore += -2;
         }
-        else if (currencies.includes(word.toLowerCase())) {
+        else if (getCurrencyNamesArray().includes(word.toLowerCase())) {
             sentence += word.bold.yellow.underline;
             sentenceCurrencies.push(word.toLowerCase());
         } else {
@@ -53,6 +51,15 @@ colorStrings = (words) => {
         }
     }
     return sentence;
+}
+
+getCurrencyNamesArray = () => {
+    var names = [];
+    db.currencies.find().forEach(c => {
+        names.push(c.lowerCase);
+        names.push(c.fullName);
+    })
+    return names;
 }
 
 normalizeName = (name) => {

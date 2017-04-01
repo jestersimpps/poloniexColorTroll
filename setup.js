@@ -1,8 +1,9 @@
 var loki = require('lokijs');
 var request = require('request');
+var db = require('diskdb');
 
-var db = new loki('data.json');
-var currencies = db.addCollection('currencies')
+db.connect('./data', ['currencies']);
+
 var options = {
     url: 'https://poloniex.com/public?command=returnCurrencies',
 };
@@ -12,13 +13,14 @@ getCurrencies = (error, response, body) => {
         var info = JSON.parse(body);
         var currencyNames = [];
         for (var x in info) {
-            currencies.insert({
+            db.currencies.save({
                 shortHand: x,
                 lowerCase: x.toLowerCase(),
                 fullName: info[x].name.toLowerCase()
-            });
+            })
         }
-        console.log(currencies.find().length + ' cryptos mapped.');
+
+        console.log('Done! ' + db.currencies.find().length + ' cryptos mapped.');
     }
 }
 
