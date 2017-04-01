@@ -19,7 +19,6 @@ function colorStrings(words) {
         }
         if (bull.includes(word.toLowerCase())) {
             sentence += word.green;
-            sentiment = 1;
         }
         else if (bear.includes(word.toLowerCase())) {
             sentence += word.red;
