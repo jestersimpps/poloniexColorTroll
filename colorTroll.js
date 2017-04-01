@@ -31,11 +31,12 @@ function colorStrings(words) {
     var wordsArray = words.split(/[\s,.\/?!]+/);
     var sentence = '';
     wordsArray.forEach(word => {
-        if (['whale','whales','action'].includes(word.toLowerCase())) {
+        if (['whale','whales','action','wall'].includes(word.toLowerCase())) {
             sentence += word.blue;
         }
         if (['pump', 'up', 'moon', 'sky', 'long', 'hodl', 'hold', 'buy','jumping','undervalued','mooning'].includes(word.toLowerCase())) {
             sentence += word.green;
+            sentiment = 1;
         }
         else if (['dump', 'down', 'crashing', 'falling', 'sell','crash'].includes(word.toLowerCase())) {
             sentence += word.red;
@@ -51,13 +52,9 @@ function colorStrings(words) {
 }
 
 connection.onopen = function (session) {
-    // function marketEvent (args,kwargs) {
-    // 	console.log(args);
-    // }
     function trollboxEvent(args, kwargs) {
         console.log(args[2].grey + ': '.grey + colorStrings(args[3]));
     }
-    // session.subscribe('BTC_ETC', marketEvent);
     session.subscribe('trollbox', trollboxEvent);
 }
 
