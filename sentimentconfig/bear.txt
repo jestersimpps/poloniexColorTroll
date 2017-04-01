@@ -4,3 +4,5 @@ crashing
 falling 
 sell
 crash
+drop
+dropping

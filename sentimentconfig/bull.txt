@@ -9,3 +9,6 @@ buy
 jumping
 undervalued
 mooning
+triangle
+pendant
+train
