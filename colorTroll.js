@@ -34,7 +34,7 @@ colorStrings = (words) => {
     return sentence;
 }
 
-callback = (error, response, body) => {
+getCurrencies = (error, response, body) => {
     if (!error && response.statusCode == 200) {
         var info = JSON.parse(body);
         for (var x in info) {
@@ -62,7 +62,7 @@ var options = {
     url: 'https://poloniex.com/public?command=returnCurrencies',
 };
 
-request(options, callback);
+request(options, getCurrencies);
 
 connection.onopen = (session) => {
     trollboxEvent = (args, kwargs) => {
