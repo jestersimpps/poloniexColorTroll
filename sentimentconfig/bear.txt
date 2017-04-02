@@ -1,7 +1,7 @@
-dump 
+dump
 down
-crashing 
-falling 
+crashing
+falling
 sell
 crash
 drop
@@ -9,3 +9,7 @@ dropping
 red
 fork
 dead
+low
+bye
+crashed
+bubble

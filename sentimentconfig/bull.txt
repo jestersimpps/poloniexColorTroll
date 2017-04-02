@@ -1,4 +1,4 @@
-pump 
+pump
 up
 moon
 sky
@@ -16,3 +16,13 @@ green
 rising
 flag
 bull
+explode
+high
+climbing
+running
+pumping
+wow
+bottom
+creeping
+volume
+holy

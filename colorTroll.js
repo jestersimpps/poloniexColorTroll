@@ -29,45 +29,87 @@ colorStrings = (words) => {
         }
         else if (bull.includes(word.toLowerCase())) {
             sentence += word.green;
-            sentimentScore += 2;
+            sentimentScore += 3;
         }
         else if (bear.includes(word.toLowerCase())) {
             sentence += word.red;
-            sentimentScore += -2;
+            sentimentScore -= 3;
         }
         else if (getCurrencyNamesArray().includes(word.toLowerCase())) {
             sentence += word.bold.yellow.underline;
-            sentenceCurrencies.push(word.toLowerCase());
+            var currencyObject = getCurrencyObject(word.toLowerCase());
+            sentenceCurrencies.push(currencyObject.shortHand);
         } else {
             sentence += word;
         }
         sentence += ' ';
     })
-    if (sentenceCurrencies.length) {
-        if (sentimentScore < 0) {
-            sentence += ' ( '.red + sentenceCurrencies.filter(onlyUnique).join(' ').red + ' ' + sentimentScore.toString().red + ' )'.red;
-            storeSentiment(sentenceCurrencies);
-        } else if (sentimentScore > 0) {
-            sentence += ' ( '.green + sentenceCurrencies.filter(onlyUnique).join(' ').green + ' +'.green + sentimentScore.toString().green + ' )'.green;
-            storeSentiment(sentenceCurrencies);
-        }
-    }
+    sentenceCurrencies.forEach(sc => {
+        sentence += generateSentiment(sc.toLowerCase(), sentimentScore);
+    })
     return sentence;
 }
 
-storeSentiment = (sentenceCurrencies) => {
-    sentenceCurrencies.forEach(c => {
-        var previousSentiment = db.currencies.findOne({ lowerCase: c }).sentiment;
-        db.currencies.update({ lowerCase: c }, { sentiment: +previousSentiment + +sentimentScore });
-        previousSentiment = db.currencies.findOne({ fullName: c }).sentiment;
-        db.currencies.update({ fullName: c }, { sentiment: +previousSentiment + +sentimentScore });
+
+generateSentiment = (currency, sentimentScore) => {
+    var currentSentiment = getCurrentSentiment(currency);
+    var newSentiment = currentSentiment + sentimentScore;
+    var sentimentPart = ' (' + currency.bold
+        + ': '
+        + colorSentiment(newSentiment) + ') ';
+    storeSentiment(currency, newSentiment);
+    if (newSentiment < 0) {
+        return colors.italic.red(sentimentPart);
+    } else if (newSentiment > 0) {
+        return colors.italic.green(sentimentPart);
+    } else {
+        return colors.italic.blue(sentimentPart);
+    }
+}
+
+decreaseSentiment = () => {
+    db.currencies.find().forEach(c => {
+        if (c.sentiment < 0) {
+            db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment + 1 });
+        } else if (c.sentiment > 0) {
+            db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment - 1 });
+        }
     })
 }
+
+colorSentiment = (sentiment) => {
+    if (sentiment < 0) {
+        return colors.red(sentiment);
+    } else if (sentiment > 0) {
+        return '+' + sentiment;
+    } else {
+        return colors.blue(sentiment);
+    }
+}
+
+storeSentiment = (currency, newSentiment) => {
+    db.currencies.update({ lowerCase: currency }, { sentiment: newSentiment });
+    db.currencies.update({ fullName: currency }, { sentiment: newSentiment });
+}
+
+getCurrencyObject = (currency) => {
+    var currencyObject = db.currencies.findOne({ lowerCase: currency });
+    if (!currencyObject) { currencyObject = db.currencies.findOne({ fullName: currency }); }
+    return currencyObject;
+}
+
+getCurrentSentiment = (c) => {
+    var currency = db.currencies.findOne({ lowerCase: c });
+    if (!currency) { currency = db.currencies.findOne({ fullName: c }) };
+    return currency ? currency.sentiment : 0;
+}
+
 getCurrencyNamesArray = () => {
     var names = [];
     db.currencies.find().forEach(c => {
         names.push(c.lowerCase);
         names.push(c.fullName);
+        names.push(c.fullName + 's');
     })
     return names;
 }
@@ -99,3 +141,8 @@ connection.onclose = function () {
 }
 
 connection.open();
+
+
+setInterval(function () {
+   decreaseSentiment();
+}, 5000);
