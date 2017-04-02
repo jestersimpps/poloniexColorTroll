@@ -11,6 +11,6 @@
 * node colorTroll
 
 ### see rankings:
-## Open rankings in new terminal window
+#### Open rankings in new terminal window
 
 * node ranking
