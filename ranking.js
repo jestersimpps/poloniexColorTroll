@@ -14,7 +14,7 @@ setInterval(function () {
             return c.sentiment;
         })
         .map((c) => {
-            return c.fullName + '  ' + c.sentiment;
+            return c.shortHand + '  ' + c.sentiment;
         });
     console.log(sortedCurrencies);
     console.log('');

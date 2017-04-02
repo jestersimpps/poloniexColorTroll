@@ -36,6 +36,7 @@ colorStrings = (words) => {
             sentimentScore -= 3;
         }
         else if (getCurrencyNamesArray().includes(word.toLowerCase())) {
+            decreaseSentiment();
             sentence += word.bold.yellow.underline;
             var currencyObject = getCurrencyObject(word.toLowerCase());
             sentenceCurrencies.push(currencyObject.shortHand);
@@ -145,4 +146,4 @@ connection.open();
 
 setInterval(function () {
    decreaseSentiment();
-}, 5000);
+}, 60000);
