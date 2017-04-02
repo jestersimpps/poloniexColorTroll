@@ -36,9 +36,9 @@ colorStrings = (words) => {
             sentimentScore -= 3;
         }
         else if (getCurrencyNamesArray().includes(word.toLowerCase())) {
-            decreaseSentiment();
             sentence += word.bold.yellow.underline;
             var currencyObject = getCurrencyObject(word.toLowerCase());
+            decreaseSentiment(currencyObject.shortHand);
             sentenceCurrencies.push(currencyObject.shortHand);
         } else {
             sentence += word;
@@ -68,12 +68,14 @@ generateSentiment = (currency, sentimentScore) => {
     }
 }
 
-decreaseSentiment = () => {
+decreaseSentiment = (upCurrencyShortHand) => {
     db.currencies.find().forEach(c => {
-        if (c.sentiment < 0) {
-            db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment + 1 });
-        } else if (c.sentiment > 0) {
-            db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment - 1 });
+        if (c.shortHand != upCurrencyShortHand) {
+            if (c.sentiment < 0) {
+                db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment + 1 });
+            } else if (c.sentiment > 0) {
+                db.currencies.update({ fullName: c.fullName }, { sentiment: c.sentiment - 1 });
+            }
         }
     })
 }
@@ -142,8 +144,3 @@ connection.onclose = function () {
 }
 
 connection.open();
-
-
-setInterval(function () {
-   decreaseSentiment();
-}, 60000);
