@@ -1,0 +1,579 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin/node',
+1 verbose cli   '/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'node-beep',
+1 verbose cli   '--save-dev' ]
+2 info using npm@3.10.5
+3 info using node@v4.4.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData node-beep
+8 silly fetchNamedPackageData node-beep
+9 silly mapToRegistry name node-beep
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'node-beep',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'node-beep',
+12 silly mapToRegistry   name: 'node-beep',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/node-beep
+14 verbose request uri https://registry.npmjs.org/node-beep
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 1:09:43 PM
+17 verbose request using bearer token for auth
+18 verbose request id 5fcfc23d4f7ee1ed
+19 verbose etag W/"565d9ae5-11fe"
+20 verbose lastModified Tue, 01 Dec 2015 13:04:37 GMT
+21 http request GET https://registry.npmjs.org/node-beep
+22 http 304 https://registry.npmjs.org/node-beep
+23 verbose headers { server: 'nginx/1.10.1',
+23 verbose headers   'last-modified': 'Tue, 01 Dec 2015 13:04:37 GMT',
+23 verbose headers   etag: '"565d9ae5-11fe"',
+23 verbose headers   'cache-control': 'max-age=300',
+23 verbose headers   'accept-ranges': 'bytes',
+23 verbose headers   date: 'Sun, 02 Apr 2017 11:09:43 GMT',
+23 verbose headers   via: '1.1 varnish',
+23 verbose headers   connection: 'keep-alive',
+23 verbose headers   'x-served-by': 'cache-ams4149-AMS',
+23 verbose headers   'x-cache': 'MISS',
+23 verbose headers   'x-cache-hits': '0',
+23 verbose headers   'x-timer': 'S1491131383.446509,VS0,VE6',
+23 verbose headers   vary: 'Accept-Encoding' }
+24 silly get cb [ 304,
+24 silly get   { server: 'nginx/1.10.1',
+24 silly get     'last-modified': 'Tue, 01 Dec 2015 13:04:37 GMT',
+24 silly get     etag: '"565d9ae5-11fe"',
+24 silly get     'cache-control': 'max-age=300',
+24 silly get     'accept-ranges': 'bytes',
+24 silly get     date: 'Sun, 02 Apr 2017 11:09:43 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-ams4149-AMS',
+24 silly get     'x-cache': 'MISS',
+24 silly get     'x-cache-hits': '0',
+24 silly get     'x-timer': 'S1491131383.446509,VS0,VE6',
+24 silly get     vary: 'Accept-Encoding' } ]
+25 verbose etag https://registry.npmjs.org/node-beep from cache
+26 verbose get saving node-beep to /Users/jestersimpps/.npm/registry.npmjs.org/node-beep/.cache.json
+27 verbose correctMkdir /Users/jestersimpps/.npm correctMkdir not in flight; initializing
+28 silly install normalizeTree
+29 silly loadCurrentTree Finishing
+30 silly loadIdealTree Starting
+31 silly install loadIdealTree
+32 silly cloneCurrentTree Starting
+33 silly install cloneCurrentTreeToIdealTree
+34 silly cloneCurrentTree Finishing
+35 silly loadShrinkwrap Starting
+36 silly install loadShrinkwrap
+37 silly loadShrinkwrap Finishing
+38 silly loadAllDepsIntoIdealTree Starting
+39 silly install loadAllDepsIntoIdealTree
+40 silly resolveWithNewModule node-beep@0.0.3 checking installable status
+41 silly cache add args [ 'node-beep', null ]
+42 verbose cache add spec node-beep
+43 silly cache add parsed spec Result {
+43 silly cache add   raw: 'node-beep',
+43 silly cache add   scope: null,
+43 silly cache add   escapedName: 'node-beep',
+43 silly cache add   name: 'node-beep',
+43 silly cache add   rawSpec: '',
+43 silly cache add   spec: 'latest',
+43 silly cache add   type: 'tag' }
+44 silly addNamed node-beep@latest
+45 verbose addNamed "latest" is being treated as a dist-tag for node-beep
+46 info addNameTag [ 'node-beep', 'latest' ]
+47 silly mapToRegistry name node-beep
+48 silly mapToRegistry using default registry
+49 silly mapToRegistry registry https://registry.npmjs.org/
+50 silly mapToRegistry data Result {
+50 silly mapToRegistry   raw: 'node-beep',
+50 silly mapToRegistry   scope: null,
+50 silly mapToRegistry   escapedName: 'node-beep',
+50 silly mapToRegistry   name: 'node-beep',
+50 silly mapToRegistry   rawSpec: '',
+50 silly mapToRegistry   spec: 'latest',
+50 silly mapToRegistry   type: 'tag' }
+51 silly mapToRegistry uri https://registry.npmjs.org/node-beep
+52 verbose addNameTag registry:https://registry.npmjs.org/node-beep not in flight; fetching
+53 verbose get https://registry.npmjs.org/node-beep not expired, no request
+54 silly addNameTag next cb for node-beep with tag latest
+55 silly addNamed node-beep@0.0.3
+56 verbose addNamed "0.0.3" is a plain semver version for node-beep
+57 silly cache afterAdd node-beep@0.0.3
+58 verbose afterAdd /Users/jestersimpps/.npm/node-beep/0.0.3/package/package.json not in flight; writing
+59 verbose correctMkdir /Users/jestersimpps/.npm correctMkdir not in flight; initializing
+60 verbose afterAdd /Users/jestersimpps/.npm/node-beep/0.0.3/package/package.json written
+61 silly loadAllDepsIntoIdealTree Finishing
+62 silly loadIdealTree Finishing
+63 silly currentTree polo@1.0.0
+63 silly currentTree ├── ajv@4.11.5
+63 silly currentTree ├── ansi-regex@2.1.1
+63 silly currentTree ├── ansi-styles@2.2.1
+63 silly currentTree ├── aproba@1.1.1
+63 silly currentTree ├── are-we-there-yet@1.1.2
+63 silly currentTree ├── asn1@0.2.3
+63 silly currentTree ├── assert-plus@0.2.0
+63 silly currentTree ├── asynckit@0.4.0
+63 silly currentTree ├── autobahn@0.12.0
+63 silly currentTree ├── aws-sign2@0.6.0
+63 silly currentTree ├── aws4@1.6.0
+63 silly currentTree ├── bcrypt-pbkdf@1.0.1
+63 silly currentTree ├── bignumber.js@3.0.1
+63 silly currentTree ├── bindings@1.2.1
+63 silly currentTree ├── bl@1.2.0
+63 silly currentTree ├── boom@2.10.1
+63 silly currentTree ├── buffer-shims@1.0.0
+63 silly currentTree ├── bufferutil@3.0.0
+63 silly currentTree ├── caseless@0.12.0
+63 silly currentTree ├── cbor@3.0.0
+63 silly currentTree ├── chalk@1.1.3
+63 silly currentTree ├── chownr@1.0.1
+63 silly currentTree ├─┬ cli-table@0.3.1
+63 silly currentTree │ └── colors@1.0.3
+63 silly currentTree ├── clone-stats@0.0.1
+63 silly currentTree ├── clone@1.0.2
+63 silly currentTree ├── co@4.6.0
+63 silly currentTree ├── code-point-at@1.1.0
+63 silly currentTree ├── colors@1.1.2
+63 silly currentTree ├── columnify@1.5.4
+63 silly currentTree ├── combined-stream@1.0.5
+63 silly currentTree ├── commander@2.9.0
+63 silly currentTree ├── console-control-strings@1.1.0
+63 silly currentTree ├── core-util-is@1.0.2
+63 silly currentTree ├── cryptiles@2.0.5
+63 silly currentTree ├── crypto-js@3.1.8
+63 silly currentTree ├─┬ dashdash@1.14.1
+63 silly currentTree │ └── assert-plus@1.0.0
+63 silly currentTree ├── deep-extend@0.4.1
+63 silly currentTree ├── defaults@1.0.3
+63 silly currentTree ├── delayed-stream@1.0.0
+63 silly currentTree ├── delegates@1.0.0
+63 silly currentTree ├── delimit-stream@0.1.0
+63 silly currentTree ├─┬ diskdb@0.1.17
+63 silly currentTree │ ├── ansi-styles@1.0.0
+63 silly currentTree │ ├── chalk@0.4.0
+63 silly currentTree │ ├── node-uuid@1.4.8
+63 silly currentTree │ └── strip-ansi@0.1.1
+63 silly currentTree ├── ecc-jsbn@0.1.1
+63 silly currentTree ├── end-of-stream@1.4.0
+63 silly currentTree ├── escape-string-regexp@1.0.5
+63 silly currentTree ├── event-lite@0.1.1
+63 silly currentTree ├── expand-template@1.0.3
+63 silly currentTree ├── extend@3.0.0
+63 silly currentTree ├── extsprintf@1.0.2
+63 silly currentTree ├── forever-agent@0.6.1
+63 silly currentTree ├── form-data@2.1.2
+63 silly currentTree ├── gauge@2.7.3
+63 silly currentTree ├─┬ getpass@0.1.6
+63 silly currentTree │ └── assert-plus@1.0.0
+63 silly currentTree ├── github-from-package@0.0.0
+63 silly currentTree ├── google-closure-compiler@20170218.0.0
+63 silly currentTree ├── graceful-readlink@1.0.1
+63 silly currentTree ├── har-schema@1.0.5
+63 silly currentTree ├── har-validator@4.2.1
+63 silly currentTree ├── has-ansi@2.0.0
+63 silly currentTree ├── has-color@0.1.7
+63 silly currentTree ├── has-unicode@2.0.1
+63 silly currentTree ├── hawk@3.1.3
+63 silly currentTree ├── hoek@2.16.3
+63 silly currentTree ├── http-signature@1.1.1
+63 silly currentTree ├── http@0.0.0
+63 silly currentTree ├── ieee754@1.1.8
+63 silly currentTree ├── inherits@2.0.3
+63 silly currentTree ├── ini@1.3.4
+63 silly currentTree ├── int64-buffer@0.1.9
+63 silly currentTree ├── is-fullwidth-code-point@1.0.0
+63 silly currentTree ├── is-typedarray@1.0.0
+63 silly currentTree ├── isarray@1.0.0
+63 silly currentTree ├── isstream@0.1.2
+63 silly currentTree ├── jodid25519@1.0.2
+63 silly currentTree ├── jsbn@0.1.1
+63 silly currentTree ├── json-schema@0.2.3
+63 silly currentTree ├── json-stable-stringify@1.0.1
+63 silly currentTree ├── json-stringify-safe@5.0.1
+63 silly currentTree ├── json-text-sequence@0.1.1
+63 silly currentTree ├── jsonify@0.0.0
+63 silly currentTree ├─┬ jsprim@1.4.0
+63 silly currentTree │ └── assert-plus@1.0.0
+63 silly currentTree ├── lokijs@1.4.3
+63 silly currentTree ├── merge@1.2.0
+63 silly currentTree ├── mime-db@1.27.0
+63 silly currentTree ├── mime-types@2.1.15
+63 silly currentTree ├── minimist@1.2.0
+63 silly currentTree ├─┬ mkdirp@0.5.1
+63 silly currentTree │ └── minimist@0.0.8
+63 silly currentTree ├── msgpack-lite@0.1.26
+63 silly currentTree ├── nan@2.5.1
+63 silly currentTree ├── node-abi@2.0.0
+63 silly currentTree ├── node-json-db@0.7.3
+63 silly currentTree ├── nofilter@0.0.3
+63 silly currentTree ├── noop-logger@0.1.1
+63 silly currentTree ├── npmlog@4.0.2
+63 silly currentTree ├── number-is-nan@1.0.1
+63 silly currentTree ├── oauth-sign@0.8.2
+63 silly currentTree ├── object-assign@4.1.1
+63 silly currentTree ├── once@1.4.0
+63 silly currentTree ├── os-homedir@1.0.2
+63 silly currentTree ├── performance-now@0.2.0
+63 silly currentTree ├── prebuild-install@2.1.1
+63 silly currentTree ├── process-nextick-args@1.0.7
+63 silly currentTree ├── pump@1.0.2
+63 silly currentTree ├── punycode@1.4.1
+63 silly currentTree ├── qs@6.4.0
+63 silly currentTree ├── rc@1.2.0
+63 silly currentTree ├── readable-stream@2.2.6
+63 silly currentTree ├── replace-ext@0.0.1
+63 silly currentTree ├─┬ request@2.81.0
+63 silly currentTree │ └── tunnel-agent@0.6.0
+63 silly currentTree ├── safe-buffer@5.0.1
+63 silly currentTree ├── sentiment@3.0.1
+63 silly currentTree ├── set-blocking@2.0.0
+63 silly currentTree ├── signal-exit@3.0.2
+63 silly currentTree ├── simple-get@1.4.3
+63 silly currentTree ├── sntp@1.0.9
+63 silly currentTree ├── source-map@0.5.6
+63 silly currentTree ├─┬ sshpk@1.11.0
+63 silly currentTree │ └── assert-plus@1.0.0
+63 silly currentTree ├── string_decoder@0.10.31
+63 silly currentTree ├── string-width@1.0.2
+63 silly currentTree ├── stringstream@0.0.5
+63 silly currentTree ├── strip-ansi@3.0.1
+63 silly currentTree ├── strip-json-comments@2.0.1
+63 silly currentTree ├── supports-color@2.0.0
+63 silly currentTree ├── tar-fs@1.15.2
+63 silly currentTree ├── tar-stream@1.5.2
+63 silly currentTree ├── tough-cookie@2.3.2
+63 silly currentTree ├── tunnel-agent@0.4.3
+63 silly currentTree ├── tweetnacl@0.14.5
+63 silly currentTree ├── ultron@1.1.0
+63 silly currentTree ├── unzip-response@1.0.2
+63 silly currentTree ├── utf-8-validate@3.0.1
+63 silly currentTree ├── util-deprecate@1.0.2
+63 silly currentTree ├── uuid@3.0.1
+63 silly currentTree ├── verror@1.3.6
+63 silly currentTree ├── vinyl-sourcemaps-apply@0.2.1
+63 silly currentTree ├── vinyl@1.2.0
+63 silly currentTree ├── wcwidth@1.0.1
+63 silly currentTree ├── when@3.7.8
+63 silly currentTree ├── wide-align@1.1.0
+63 silly currentTree ├── wrappy@1.0.2
+63 silly currentTree ├── ws@2.2.2
+63 silly currentTree └── xtend@4.0.1
+64 silly idealTree polo@1.0.0
+64 silly idealTree ├── ajv@4.11.5
+64 silly idealTree ├── ansi-regex@2.1.1
+64 silly idealTree ├── ansi-styles@2.2.1
+64 silly idealTree ├── aproba@1.1.1
+64 silly idealTree ├── are-we-there-yet@1.1.2
+64 silly idealTree ├── asn1@0.2.3
+64 silly idealTree ├── assert-plus@0.2.0
+64 silly idealTree ├── asynckit@0.4.0
+64 silly idealTree ├── autobahn@0.12.0
+64 silly idealTree ├── aws-sign2@0.6.0
+64 silly idealTree ├── aws4@1.6.0
+64 silly idealTree ├── bcrypt-pbkdf@1.0.1
+64 silly idealTree ├── bignumber.js@3.0.1
+64 silly idealTree ├── bindings@1.2.1
+64 silly idealTree ├── bl@1.2.0
+64 silly idealTree ├── boom@2.10.1
+64 silly idealTree ├── buffer-shims@1.0.0
+64 silly idealTree ├── bufferutil@3.0.0
+64 silly idealTree ├── caseless@0.12.0
+64 silly idealTree ├── cbor@3.0.0
+64 silly idealTree ├── chalk@1.1.3
+64 silly idealTree ├── chownr@1.0.1
+64 silly idealTree ├─┬ cli-table@0.3.1
+64 silly idealTree │ └── colors@1.0.3
+64 silly idealTree ├── clone-stats@0.0.1
+64 silly idealTree ├── clone@1.0.2
+64 silly idealTree ├── co@4.6.0
+64 silly idealTree ├── code-point-at@1.1.0
+64 silly idealTree ├── colors@1.1.2
+64 silly idealTree ├── columnify@1.5.4
+64 silly idealTree ├── combined-stream@1.0.5
+64 silly idealTree ├── commander@2.9.0
+64 silly idealTree ├── console-control-strings@1.1.0
+64 silly idealTree ├── core-util-is@1.0.2
+64 silly idealTree ├── cryptiles@2.0.5
+64 silly idealTree ├── crypto-js@3.1.8
+64 silly idealTree ├─┬ dashdash@1.14.1
+64 silly idealTree │ └── assert-plus@1.0.0
+64 silly idealTree ├── deep-extend@0.4.1
+64 silly idealTree ├── defaults@1.0.3
+64 silly idealTree ├── delayed-stream@1.0.0
+64 silly idealTree ├── delegates@1.0.0
+64 silly idealTree ├── delimit-stream@0.1.0
+64 silly idealTree ├─┬ diskdb@0.1.17
+64 silly idealTree │ ├── ansi-styles@1.0.0
+64 silly idealTree │ ├── chalk@0.4.0
+64 silly idealTree │ ├── node-uuid@1.4.8
+64 silly idealTree │ └── strip-ansi@0.1.1
+64 silly idealTree ├── ecc-jsbn@0.1.1
+64 silly idealTree ├── end-of-stream@1.4.0
+64 silly idealTree ├── escape-string-regexp@1.0.5
+64 silly idealTree ├── event-lite@0.1.1
+64 silly idealTree ├── expand-template@1.0.3
+64 silly idealTree ├── extend@3.0.0
+64 silly idealTree ├── extsprintf@1.0.2
+64 silly idealTree ├── forever-agent@0.6.1
+64 silly idealTree ├── form-data@2.1.2
+64 silly idealTree ├── gauge@2.7.3
+64 silly idealTree ├─┬ getpass@0.1.6
+64 silly idealTree │ └── assert-plus@1.0.0
+64 silly idealTree ├── github-from-package@0.0.0
+64 silly idealTree ├── google-closure-compiler@20170218.0.0
+64 silly idealTree ├── graceful-readlink@1.0.1
+64 silly idealTree ├── har-schema@1.0.5
+64 silly idealTree ├── har-validator@4.2.1
+64 silly idealTree ├── has-ansi@2.0.0
+64 silly idealTree ├── has-color@0.1.7
+64 silly idealTree ├── has-unicode@2.0.1
+64 silly idealTree ├── hawk@3.1.3
+64 silly idealTree ├── hoek@2.16.3
+64 silly idealTree ├── http-signature@1.1.1
+64 silly idealTree ├── http@0.0.0
+64 silly idealTree ├── ieee754@1.1.8
+64 silly idealTree ├── inherits@2.0.3
+64 silly idealTree ├── ini@1.3.4
+64 silly idealTree ├── int64-buffer@0.1.9
+64 silly idealTree ├── is-fullwidth-code-point@1.0.0
+64 silly idealTree ├── is-typedarray@1.0.0
+64 silly idealTree ├── isarray@1.0.0
+64 silly idealTree ├── isstream@0.1.2
+64 silly idealTree ├── jodid25519@1.0.2
+64 silly idealTree ├── jsbn@0.1.1
+64 silly idealTree ├── json-schema@0.2.3
+64 silly idealTree ├── json-stable-stringify@1.0.1
+64 silly idealTree ├── json-stringify-safe@5.0.1
+64 silly idealTree ├── json-text-sequence@0.1.1
+64 silly idealTree ├── jsonify@0.0.0
+64 silly idealTree ├─┬ jsprim@1.4.0
+64 silly idealTree │ └── assert-plus@1.0.0
+64 silly idealTree ├── lokijs@1.4.3
+64 silly idealTree ├── merge@1.2.0
+64 silly idealTree ├── mime-db@1.27.0
+64 silly idealTree ├── mime-types@2.1.15
+64 silly idealTree ├── minimist@1.2.0
+64 silly idealTree ├─┬ mkdirp@0.5.1
+64 silly idealTree │ └── minimist@0.0.8
+64 silly idealTree ├── msgpack-lite@0.1.26
+64 silly idealTree ├── nan@2.5.1
+64 silly idealTree ├── node-abi@2.0.0
+64 silly idealTree ├── node-beep@0.0.3
+64 silly idealTree ├── node-json-db@0.7.3
+64 silly idealTree ├── nofilter@0.0.3
+64 silly idealTree ├── noop-logger@0.1.1
+64 silly idealTree ├── npmlog@4.0.2
+64 silly idealTree ├── number-is-nan@1.0.1
+64 silly idealTree ├── oauth-sign@0.8.2
+64 silly idealTree ├── object-assign@4.1.1
+64 silly idealTree ├── once@1.4.0
+64 silly idealTree ├── os-homedir@1.0.2
+64 silly idealTree ├── performance-now@0.2.0
+64 silly idealTree ├── prebuild-install@2.1.1
+64 silly idealTree ├── process-nextick-args@1.0.7
+64 silly idealTree ├── pump@1.0.2
+64 silly idealTree ├── punycode@1.4.1
+64 silly idealTree ├── qs@6.4.0
+64 silly idealTree ├── rc@1.2.0
+64 silly idealTree ├── readable-stream@2.2.6
+64 silly idealTree ├── replace-ext@0.0.1
+64 silly idealTree ├─┬ request@2.81.0
+64 silly idealTree │ └── tunnel-agent@0.6.0
+64 silly idealTree ├── safe-buffer@5.0.1
+64 silly idealTree ├── sentiment@3.0.1
+64 silly idealTree ├── set-blocking@2.0.0
+64 silly idealTree ├── signal-exit@3.0.2
+64 silly idealTree ├── simple-get@1.4.3
+64 silly idealTree ├── sntp@1.0.9
+64 silly idealTree ├── source-map@0.5.6
+64 silly idealTree ├─┬ sshpk@1.11.0
+64 silly idealTree │ └── assert-plus@1.0.0
+64 silly idealTree ├── string_decoder@0.10.31
+64 silly idealTree ├── string-width@1.0.2
+64 silly idealTree ├── stringstream@0.0.5
+64 silly idealTree ├── strip-ansi@3.0.1
+64 silly idealTree ├── strip-json-comments@2.0.1
+64 silly idealTree ├── supports-color@2.0.0
+64 silly idealTree ├── tar-fs@1.15.2
+64 silly idealTree ├── tar-stream@1.5.2
+64 silly idealTree ├── tough-cookie@2.3.2
+64 silly idealTree ├── tunnel-agent@0.4.3
+64 silly idealTree ├── tweetnacl@0.14.5
+64 silly idealTree ├── ultron@1.1.0
+64 silly idealTree ├── unzip-response@1.0.2
+64 silly idealTree ├── utf-8-validate@3.0.1
+64 silly idealTree ├── util-deprecate@1.0.2
+64 silly idealTree ├── uuid@3.0.1
+64 silly idealTree ├── verror@1.3.6
+64 silly idealTree ├── vinyl-sourcemaps-apply@0.2.1
+64 silly idealTree ├── vinyl@1.2.0
+64 silly idealTree ├── wcwidth@1.0.1
+64 silly idealTree ├── when@3.7.8
+64 silly idealTree ├── wide-align@1.1.0
+64 silly idealTree ├── wrappy@1.0.2
+64 silly idealTree ├── ws@2.2.2
+64 silly idealTree └── xtend@4.0.1
+65 silly generateActionsToTake Starting
+66 silly install generateActionsToTake
+67 silly generateActionsToTake Finishing
+68 silly diffTrees action count 1
+69 silly diffTrees add node-beep@0.0.3
+70 silly decomposeActions action count 8
+71 silly decomposeActions fetch node-beep@0.0.3
+72 silly decomposeActions extract node-beep@0.0.3
+73 silly decomposeActions test node-beep@0.0.3
+74 silly decomposeActions preinstall node-beep@0.0.3
+75 silly decomposeActions build node-beep@0.0.3
+76 silly decomposeActions install node-beep@0.0.3
+77 silly decomposeActions postinstall node-beep@0.0.3
+78 silly decomposeActions finalize node-beep@0.0.3
+79 silly executeActions Starting
+80 silly install executeActions
+81 silly doSerial global-install 0
+82 silly doParallel fetch 1
+83 verbose correctMkdir /Users/jestersimpps/.npm/_locks correctMkdir not in flight; initializing
+84 verbose lock using /Users/jestersimpps/.npm/_locks/staging-89ecc4e1a952c793.lock for /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging
+85 silly doParallel extract 1
+86 silly extract node-beep@0.0.3
+87 verbose unbuild node_modules/.staging/node-beep-277c5773
+88 silly gentlyRm /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773 is being purged from base /Users/jestersimpps/Sites/experiments/polo
+89 verbose gentlyRm don't care about contents; nuking /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773
+90 verbose tar unpack /Users/jestersimpps/.npm/node-beep/0.0.3/package.tgz
+91 verbose tar unpacking to /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773
+92 silly gentlyRm /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773 is being purged
+93 verbose gentlyRm don't care about contents; nuking /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773
+94 silly gunzTarPerm modes [ '755', '644' ]
+95 silly gunzTarPerm extractEntry package.json
+96 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+97 silly gunzTarPerm extractEntry README.md
+98 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+99 silly gunzTarPerm extractEntry LICENSE
+100 silly gunzTarPerm modified mode [ 'LICENSE', 438, 420 ]
+101 silly gunzTarPerm extractEntry beep.js
+102 silly gunzTarPerm modified mode [ 'beep.js', 438, 420 ]
+103 silly gunzTarPerm extractEntry beep.cc
+104 silly gunzTarPerm modified mode [ 'beep.cc', 438, 420 ]
+105 silly gunzTarPerm extractEntry binding.gyp
+106 silly gunzTarPerm modified mode [ 'binding.gyp', 438, 420 ]
+107 silly gunzTarPerm extractEntry build/Release/beep.exp
+108 silly gunzTarPerm modified mode [ 'build/Release/beep.exp', 438, 420 ]
+109 silly gunzTarPerm extractEntry build/Release/beep.lib
+110 silly gunzTarPerm modified mode [ 'build/Release/beep.lib', 438, 420 ]
+111 silly gunzTarPerm extractEntry build/Release/beep.map
+112 silly gunzTarPerm modified mode [ 'build/Release/beep.map', 438, 420 ]
+113 silly gunzTarPerm extractEntry build/Release/beep.node
+114 silly gunzTarPerm modified mode [ 'build/Release/beep.node', 438, 420 ]
+115 silly gunzTarPerm extractEntry build/Release/beep.pdb
+116 silly gunzTarPerm modified mode [ 'build/Release/beep.pdb', 438, 420 ]
+117 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.obj
+118 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.obj', 438, 420 ]
+119 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/CL.read.1.tlog
+120 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/CL.read.1.tlog', 438, 420 ]
+121 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/CL.write.1.tlog
+122 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/CL.write.1.tlog', 438, 420 ]
+123 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/beep.lastbuildstate
+124 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/beep.lastbuildstate',
+124 silly gunzTarPerm   438,
+124 silly gunzTarPerm   420 ]
+125 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/beep.write.1u.tlog
+126 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/beep.write.1u.tlog',
+126 silly gunzTarPerm   438,
+126 silly gunzTarPerm   420 ]
+127 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/cl.command.1.tlog
+128 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/cl.command.1.tlog',
+128 silly gunzTarPerm   438,
+128 silly gunzTarPerm   420 ]
+129 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/link.command.1.tlog
+130 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/link.command.1.tlog',
+130 silly gunzTarPerm   438,
+130 silly gunzTarPerm   420 ]
+131 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/link.read.1.tlog
+132 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/link.read.1.tlog', 438, 420 ]
+133 silly gunzTarPerm extractEntry build/Release/obj/beep/beep.tlog/link.write.1.tlog
+134 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/beep.tlog/link.write.1.tlog',
+134 silly gunzTarPerm   438,
+134 silly gunzTarPerm   420 ]
+135 silly gunzTarPerm extractEntry build/Release/obj/beep/vc120.pdb
+136 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/vc120.pdb', 438, 420 ]
+137 silly gunzTarPerm extractEntry build/Release/obj/beep/win_delay_load_hook.obj
+138 silly gunzTarPerm modified mode [ 'build/Release/obj/beep/win_delay_load_hook.obj', 438, 420 ]
+139 silly gunzTarPerm extractEntry build/beep.vcxproj
+140 silly gunzTarPerm modified mode [ 'build/beep.vcxproj', 438, 420 ]
+141 silly gunzTarPerm extractEntry build/beep.vcxproj.filters
+142 silly gunzTarPerm modified mode [ 'build/beep.vcxproj.filters', 438, 420 ]
+143 silly gunzTarPerm extractEntry build/binding.sln
+144 silly gunzTarPerm modified mode [ 'build/binding.sln', 438, 420 ]
+145 silly gunzTarPerm extractEntry test/app.js
+146 silly gunzTarPerm modified mode [ 'test/app.js', 438, 420 ]
+147 silly gentlyRm /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773/node_modules is being purged
+148 verbose gentlyRm don't care about contents; nuking /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773/node_modules
+149 silly doParallel preinstall 1
+150 silly preinstall node-beep@0.0.3 /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773
+151 info lifecycle node-beep@0.0.3~preinstall: node-beep@0.0.3
+152 silly lifecycle node-beep@0.0.3~preinstall: no script for preinstall, continuing
+153 silly doReverseSerial remove 0
+154 silly doSerial move 0
+155 silly doSerial finalize 1
+156 silly finalize /Users/jestersimpps/Sites/experiments/polo/node_modules/node-beep
+157 silly doSerial build 1
+158 silly build node-beep@0.0.3
+159 info linkStuff node-beep@0.0.3
+160 silly linkStuff node-beep@0.0.3 has /Users/jestersimpps/Sites/experiments/polo/node_modules as its parent node_modules
+161 verbose linkBins node-beep@0.0.3
+162 verbose linkMans node-beep@0.0.3
+163 silly doSerial global-link 0
+164 silly doParallel update-linked 0
+165 silly doSerial install 1
+166 silly install node-beep@0.0.3 /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging/node-beep-277c5773
+167 info lifecycle node-beep@0.0.3~install: node-beep@0.0.3
+168 verbose lifecycle node-beep@0.0.3~install: unsafe-perm in lifecycle true
+169 verbose lifecycle node-beep@0.0.3~install: PATH: /Users/jestersimpps/.nvm/versions/node/v4.4.2/lib/node_modules/npm/bin/node-gyp-bin:/Users/jestersimpps/Sites/experiments/polo/node_modules/node-beep/node_modules/.bin:/Users/jestersimpps/Sites/experiments/polo/node_modules/.bin:/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin:/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin:/Users/jestersimpps/.npm-global/bin:/usr/local/mongodb/bin:/usr/local/git/bin:/usr/local/openssl/bin:/usr/local/autoconf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/jestersimpps/golang/bin:/usr/local/opt/go/libexec/bin/bin:/usr/local/mongodb/bin:/usr/local/git/bin:/usr/local/openssl/bin:/usr/local/autoconf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/jestersimpps/golang/bin:/usr/local/opt/go/libexec/bin:/Users/jestersimpps/android-sdk/android-sdk-macosx/tools:/Users/jestersimpps/android-sdk/android-sdk-macosx/platform-tools:/Users/jestersimpps/ant/apache-ant-1.9.6/bin
+170 verbose lifecycle node-beep@0.0.3~install: CWD: /Users/jestersimpps/Sites/experiments/polo/node_modules/node-beep
+171 silly lifecycle node-beep@0.0.3~install: Args: [ '-c', 'node-gyp rebuild' ]
+172 silly lifecycle node-beep@0.0.3~install: Returned: code: 1  signal: null
+173 info lifecycle node-beep@0.0.3~install: Failed to exec install script
+174 verbose unlock done using /Users/jestersimpps/.npm/_locks/staging-89ecc4e1a952c793.lock for /Users/jestersimpps/Sites/experiments/polo/node_modules/.staging
+175 silly rollbackFailedOptional Starting
+176 silly rollbackFailedOptional Finishing
+177 silly runTopLevelLifecycles Starting
+178 silly runTopLevelLifecycles Finishing
+179 silly install printInstalled
+180 warn polo@1.0.0 No repository field.
+181 verbose stack Error: node-beep@0.0.3 install: `node-gyp rebuild`
+181 verbose stack Exit status 1
+181 verbose stack     at EventEmitter.<anonymous> (/Users/jestersimpps/.nvm/versions/node/v4.4.2/lib/node_modules/npm/lib/utils/lifecycle.js:242:16)
+181 verbose stack     at emitTwo (events.js:87:13)
+181 verbose stack     at EventEmitter.emit (events.js:172:7)
+181 verbose stack     at ChildProcess.<anonymous> (/Users/jestersimpps/.nvm/versions/node/v4.4.2/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+181 verbose stack     at emitTwo (events.js:87:13)
+181 verbose stack     at ChildProcess.emit (events.js:172:7)
+181 verbose stack     at maybeClose (internal/child_process.js:827:16)
+181 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+182 verbose pkgid node-beep@0.0.3
+183 verbose cwd /Users/jestersimpps/Sites/experiments/polo
+184 error Darwin 16.4.0
+185 error argv "/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin/node" "/Users/jestersimpps/.nvm/versions/node/v4.4.2/bin/npm" "install" "node-beep" "--save-dev"
+186 error node v4.4.2
+187 error npm  v3.10.5
+188 error code ELIFECYCLE
+189 error node-beep@0.0.3 install: `node-gyp rebuild`
+189 error Exit status 1
+190 error Failed at the node-beep@0.0.3 install script 'node-gyp rebuild'.
+190 error Make sure you have the latest version of node.js and npm installed.
+190 error If you do, this is most likely a problem with the node-beep package,
+190 error not with npm itself.
+190 error Tell the author that this fails on your system:
+190 error     node-gyp rebuild
+190 error You can get information on how to open an issue for this project with:
+190 error     npm bugs node-beep
+190 error Or if that isn't available, you can get their info via:
+190 error     npm owner ls node-beep
+190 error There is likely additional logging output above.
+191 verbose exit [ 1, true ]
