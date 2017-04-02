@@ -20,13 +20,13 @@ getCurrencies = (error, response, body) => {
                 var lcc = x.toLowerCase();
                 if (lcc.indexOf(cn.lowerCase) != -1) {
                     if (lcc.indexOf('btc_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x]? info[x].last : 0 });
+                        db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x] ? info[x].last : 0 });
                     }
                     if (lcc.indexOf('eth_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x]? info[x].last : 0 });
+                        db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x] ? info[x].last : 0 });
                     }
                     if (lcc.indexOf('usd_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x]? info[x].last : 0 });
+                        db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x] ? info[x].last : 0 });
                     }
                 }
             })
@@ -52,30 +52,30 @@ setInterval(() => {
         .map((c) => {
             if (c.sentiment > 10) {
                 // console.log('\u0007');
-                return colors.green('PUMPING: ' 
-                + c.shortHand 
-                + ' | Sentiment: ' 
-                + c.sentiment + ' | ' 
-                + c.btclast ? c.btclast + ' BTC | ' : ''
-                + c.usdlast?c.usdlast + ' USD | ': ''
-                + c.ethlast? c.ethlast + ' ETH': '');
+                return colors.green('PUMPING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + c.btclast + ' BTC | '
+                    + c.usdlast + ' USD | ' 
+                    + c.ethlast + ' ETH');
             } else if (c.sentiment < -10) {
                 // console.log('\u0007');
-                return colors.red('DUMPING: ' 
-                + c.shortHand 
-                + ' | Sentiment: ' 
-                + c.sentiment + ' | ' 
-                + c.btclast + ' BTC | '
-                + c.usdlast + ' USD | '
-                + c.ethlast + ' ETH');
+                return colors.red('DUMPING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + c.btclast + ' BTC | '
+                    + c.usdlast + ' USD | '
+                    + c.ethlast + ' ETH');
             } else {
-                return colors.blue('WATCHING: ' 
-                + c.shortHand 
-                + ' | Sentiment: ' 
-                + c.sentiment + ' | ' 
-                + c.btclast + ' BTC | '
-                + c.usdlast + ' USD | '
-                + c.ethlast + ' ETH');
+                return colors.blue('WATCHING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + c.btclast + ' BTC | '
+                    + c.usdlast + ' USD | '
+                    + c.ethlast + ' ETH');
             }
         });
     process.stdout.write('\033c');
