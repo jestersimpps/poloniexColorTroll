@@ -20,13 +20,13 @@ getCurrencies = (error, response, body) => {
                 var lcc = x.toLowerCase();
                 if (lcc.indexOf(cn.lowerCase) != -1) {
                     if (lcc.indexOf('btc_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x].last });
+                        db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x]? info[x].last : 0 });
                     }
                     if (lcc.indexOf('eth_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x].last });
+                        db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x]? info[x].last : 0 });
                     }
                     if (lcc.indexOf('usd_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x].last });
+                        db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x]? info[x].last : 0 });
                     }
                 }
             })
