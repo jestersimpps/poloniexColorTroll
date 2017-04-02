@@ -17,7 +17,7 @@ setInterval(function () {
             if (c.sentiment > 10) {
                 console.log('\u0007');
                 return 'PUMPING: ' + c.shortHand + ' => ' + c.sentiment;
-            } else if (c.sentiment < -3) {
+            } else if (c.sentiment < -10) {
                 console.log('\u0007');
                 return 'DUMPING: ' + c.shortHand + ' => ' + c.sentiment;
             } else {
