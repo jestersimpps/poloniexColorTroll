@@ -19,7 +19,10 @@ getCurrencies = (error, response, body) => {
                 shortHand: x,
                 lowerCase: x.toLowerCase(),
                 fullName: info[x].name.toLowerCase(),
-                sentiment: 0
+                sentiment: 0,
+                btclast: 0,
+                usdlast:0,
+                ethlast:0
             })
         }
 

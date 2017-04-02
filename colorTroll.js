@@ -58,7 +58,9 @@ generateSentiment = (currency, sentimentScore) => {
     var sentimentPart = ' (' + currency.bold
         + ': '
         + colorSentiment(newSentiment) + ') ';
-    storeSentiment(currency, newSentiment);
+    if (newSentiment < 20 && newSentiment > -20) {
+        storeSentiment(currency, newSentiment);
+    }
     if (newSentiment < 0) {
         return colors.italic.red(sentimentPart);
     } else if (newSentiment > 0) {
@@ -67,6 +69,7 @@ generateSentiment = (currency, sentimentScore) => {
         return colors.italic.blue(sentimentPart);
     }
 }
+
 
 decreaseSentiment = (upCurrencyShortHand) => {
     db.currencies.find().forEach(c => {
