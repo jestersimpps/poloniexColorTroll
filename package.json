@@ -12,7 +12,7 @@
     "autobahn": "^0.12.0",
     "colors": "^1.1.2",
     "columnify": "^1.5.4",
-    "diskdb": "^0.1.17",
+    "mongoose": "^4.9.3",
     "request": "^2.81.0",
     "sentiment": "^3.0.1",
     "ws": "^2.2.2"

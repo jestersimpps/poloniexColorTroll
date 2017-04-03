@@ -147,3 +147,25 @@ connection.onclose = function () {
 }
 
 connection.open();
+
+// var wsuri = "wss://ws.pusherapp.com/app/4e0ebd7a8b66fa3554a4?protocol=6&client=js&version=2.0.0&flash=false";
+// var connection = new autobahn.Connection({
+//     url: wsuri,
+// });
+
+// connection.onopen = (session) => {
+//     trollboxEvent = (args, kwargs) => {
+//         var troll = {
+//             name: normalizeName(args[2]),
+//             message: colorStrings(args[3])
+//         };
+//         console.log(troll.name + troll.message);
+//     }
+//     session.subscribe('trollbox', trollboxEvent);
+// }
+
+// connection.onclose = function () {
+//     console.log("Websocket connection closed");
+// }
+
+// connection.open();
