@@ -19,15 +19,18 @@ getCurrencies = (error, response, body) => {
             currencyNames.forEach(cn => {
                 var lcc = x.toLowerCase();
                 if (lcc.indexOf(cn.lowerCase) != -1) {
-                    if (lcc.indexOf('btc_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x] ? info[x].last : 0 });
+                    try {
+                        if (lcc.indexOf('btc_') != -1) {
+                            db.currencies.update({ shortHand: cn.shortHand }, { btclast: info[x] ? info[x].last : 0 });
+                        }
+                        if (lcc.indexOf('eth_') != -1) {
+                            db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x] ? info[x].last : 0 });
+                        }
+                        if (lcc.indexOf('usd_') != -1) {
+                            db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x] ? info[x].last : 0 });
+                        }
                     }
-                    if (lcc.indexOf('eth_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { ethlast: info[x] ? info[x].last : 0 });
-                    }
-                    if (lcc.indexOf('usd_') != -1) {
-                        db.currencies.update({ shortHand: cn.shortHand }, { usdlast: info[x] ? info[x].last : 0 });
-                    }
+                    catch (err) { }
                 }
             })
         }
@@ -57,7 +60,7 @@ setInterval(() => {
                     + ' | Sentiment: '
                     + c.sentiment + ' | '
                     + c.btclast + ' BTC | '
-                    + c.usdlast + ' USD | ' 
+                    + c.usdlast + ' USD | '
                     + c.ethlast + ' ETH');
             } else if (c.sentiment < -10) {
                 // console.log('\u0007');
