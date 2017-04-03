@@ -1,4 +1,3 @@
-var loki = require('lokijs');
 var request = require('request');
 var db = require('diskdb');
 
