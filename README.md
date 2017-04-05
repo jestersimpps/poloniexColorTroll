@@ -4,11 +4,11 @@
 * git clone https://github.com/jestersimpps/poloniexColorTroll.git
 * go to root of folder
 * npm i
-* node setup
+* node clean
 
 ### running trollbox:
 
-* node colorTroll
+* node troll
 
 ### see rankings:
 #### Open rankings in new terminal window

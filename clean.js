@@ -1,48 +1,16 @@
 var request = require('request');
-var assert = require('assert');
-var url = 'mongodb://localhost:27017/polo';
-var mongoose = require('mongoose');
+var Currency = require('./models/currency');
+var Trade = require('./models/trade');
+var Bought = require('./models/bought');
 
-
-mongoose.connect(url);
-var db = mongoose.connection;
-
-db.on('error', function (err) {
-    console.log('connection error', err);
-});
-db.once('open', function () {
-    console.log('mongod connected.');
-});
-
-
-var Currency = mongoose.model('currencies', {
-    shortHand: String,
-    lowerCase: String,
-    fullName: String,
-    sentiment: Number,
-    btclast: Number,
-    usdlast: Number,
-    ethlast: Number
-});
-
-var Trade = mongoose.model('trades', {
-    action: String,
-    shortHand: String,
-    usdlast: Number
-});
-
-var CurrentlyBought = mongoose.model('currentlyBought', {
-    shortHand: String
-});
 
 var options = {
     url: 'https://poloniex.com/public?command=returnCurrencies',
 };
 
-
-Currency.collection.drop();
-Trade.collection.drop();
-CurrentlyBought.collection.drop();
+Currency.remove(function () { })
+Trade.remove(function () { })
+Bought.remove(function () { })
 
 
 getCurrencies = (error, response, body) => {
@@ -55,9 +23,12 @@ getCurrencies = (error, response, body) => {
                 lowerCase: x.toLowerCase(),
                 fullName: info[x].name.toLowerCase(),
                 sentiment: 0,
-                btclast: 0,
-                usdlast: 0,
-                ethlast: 0
+                btcLast: 0,
+                btcLastTrend: '-',
+                usdLast: 0,
+                usdLastTrend: '-',
+                ethLast: 0,
+                ethLastTrend: '-'
             });
         }
         Currency.insertMany(currencyNames)

@@ -26,6 +26,8 @@ bottom
 creeping
 volume
 flying
+raise
+rise
 fly
 holy
 love
@@ -35,6 +37,7 @@ refuelling
 omg
 breaking
 primed
+good
 takeoff
 skyrocketing
 crawling

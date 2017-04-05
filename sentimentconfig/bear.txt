@@ -21,3 +21,5 @@ doom
 gloom
 selling
 resistance
+bear
+trap

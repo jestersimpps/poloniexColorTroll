@@ -1,55 +1,13 @@
-var colors = require('colors');
 var request = require('request');
-var url = 'mongodb://localhost:27017/polo';
-var mongoose = require('mongoose');
+var autobahn = require('autobahn');
+var colors = require('colors');
+var sentiment = require('sentiment');
+var fs = require('fs');
 
-mongoose.connect(url);
-var db = mongoose.connection;
-
-db.on('error', function (err) {
-    console.log('connection error', err);
-});
-db.once('open', function () {
-    console.log('mongod connected.');
-});
-
-var Currency = mongoose.model('currencies', {
-    shortHand: String,
-    lowerCase: String,
-    fullName: String,
-    sentiment: Number,
-    btclast: Number,
-    usdlast: Number,
-    ethlast: Number
-});
-
-var Trade = mongoose.model('trades', {
-    action: String,
-    shortHand: String,
-    usdlast: Number
-});
-
-var CurrentlyBought = mongoose.model('currentlyBought', {
-    shortHand: String
-});
-var options = {
-    url: 'https://poloniex.com/public?command=returnTicker',
-};
-
-
-getCurrencies = (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-        var newPrices = JSON.parse(body);
-        Currency.find({}, (err, currencies) => {
-            currencies.map(currencyObject => {
-                currencyObject.ethlast = getCurrencyPrice('eth_', currencyObject, newPrices);
-                currencyObject.usdlast = getCurrencyPrice('usd_', currencyObject, newPrices);
-                currencyObject.btclast = getCurrencyPrice('btc_', currencyObject, newPrices);
-                Currency.update({ shortHand: currencyObject.shortHand }, currencyObject);
-            });
-        });
-    }
-}
+//models
+var Currency = require('./models/currency');
+var Trade = require('./models/trade');
+var Bought = require('./models/bought');
 
 getCurrencyPrice = (typeString, currencyObject, newPrices) => {
     for (var x in newPrices) {
@@ -63,80 +21,107 @@ getCurrencyPrice = (typeString, currencyObject, newPrices) => {
     return 0;
 }
 
+
+refreshCurrencies = (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+        var newPrices = JSON.parse(body);
+        //get currencies from db
+        Currency.find({}, (err, currencies) => {
+            currencies.map(currencyObject => {
+                var currentEthPrice = getCurrencyPrice('eth_', currencyObject, newPrices);
+                if (currentEthPrice > currencyObject.ethLast) {
+                    currencyObject.ethLastTrend = 'UP';
+                } else if (currentEthPrice < currencyObject.ethLast) {
+                    currencyObject.ethLastTrend = 'DOWN';
+                } else {
+                    currencyObject.ethLastTrend = '-';
+                }
+                currencyObject.ethLast = currentEthPrice;
+
+                var currentBtcPrice = getCurrencyPrice('btc_', currencyObject, newPrices);
+                if (currentBtcPrice > currencyObject.btcLast) {
+                    currencyObject.btcLastTrend = 'UP';
+                } else if (currentBtcPrice < currencyObject.btcLast) {
+                    currencyObject.btcLastTrend = 'DOWN';
+                } else {
+                    currencyObject.btcLastTrend = '-';
+                }
+                currencyObject.btcLast = currentBtcPrice;
+
+                var currentUsdPrice = getCurrencyPrice('usd_', currencyObject, newPrices);
+                if (currentUsdPrice > currencyObject.usdLast) {
+                    currencyObject.usdLastTrend = 'UP';
+                } else if (currentUsdPrice < currencyObject.usdLast) {
+                    currencyObject.usdLastTrend = 'DOWN';
+                } else {
+                    currencyObject.usdLastTrend = '-';
+                }
+                currencyObject.usdLast = currentUsdPrice;
+
+                Currency.findByIdAndUpdate(currencyObject._id, currencyObject, { upsert: false }, (err, doc) => {
+                    if (err) return console.log(err);
+                });
+            });
+        });
+    }
+}
+
+createRankedList = (currencies) => {
+    return currencies
+        .sort((a, b) => {
+            return parseFloat(b.sentiment) - parseFloat(a.sentiment);
+        })
+        .filter((c) => {
+            return c.sentiment;
+        })
+        .map((c) => {
+            if (c.sentiment > 10) {
+                // console.log('\u0007');
+                return colors.green('PUMPING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + c.btcLast + ' BTC | '
+                    + c.usdLast + ' USD | '
+                    + c.ethLast + ' ETH');
+            } else if (c.sentiment < -5) {
+                // console.log('\u0007');
+                return colors.red('DUMPING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + c.btcLast + ' BTC | '
+                    + c.usdLast + ' USD | '
+                    + c.ethLast + ' ETH');
+            } else {
+                var btc = c.btcLastTrend === 'UP' ? colors.green(c.btcLast) : c.btcLastTrend === '-' ? colors.blue(c.btcLast) : colors.red(c.btcLast);
+                var eth = c.ethLastTrend === 'UP' ? colors.green(c.ethLast) : c.ethLastTrend === '-' ? colors.blue(c.ethLast) : colors.red(c.ethLast);
+                var usd = c.usdLastTrend === 'UP' ? colors.green(c.usdLast) : c.usdLastTrend === '-' ? colors.blue(c.usdLast) : colors.red(c.usdLast);
+                return colors.blue('WATCHING: '
+                    + c.shortHand
+                    + ' | Sentiment: '
+                    + c.sentiment + ' | '
+                    + btc + ' BTC | '
+                    + c.usdLast + ' USD | '
+                    + c.ethLast + ' ETH');
+            }
+        });
+}
+
+
 setInterval(() => {
 
-    request(options, getCurrencies);
+    request({ url: 'https://poloniex.com/public?command=returnTicker' }, refreshCurrencies);
+
     Currency.find({}, (err, currencies) => {
-
-        //rank
-        var sortedCurrencies = currencies
-            .sort((a, b) => {
-                return parseFloat(b.sentiment) - parseFloat(a.sentiment);
-            })
-            .filter((c) => {
-                return c.sentiment;
-            })
-            .map((c) => {
-                if (c.sentiment > 10) {
-                    // console.log('\u0007');
-                    return colors.green('PUMPING: '
-                        + c.shortHand
-                        + ' | Sentiment: '
-                        + c.sentiment + ' | '
-                        + c.btclast + ' BTC | '
-                        + c.usdlast + ' USD | '
-                        + c.ethlast + ' ETH');
-                } else if (c.sentiment < -5) {
-                    // console.log('\u0007');
-                    return colors.red('DUMPING: '
-                        + c.shortHand
-                        + ' | Sentiment: '
-                        + c.sentiment + ' | '
-                        + c.btclast + ' BTC | '
-                        + c.usdlast + ' USD | '
-                        + c.ethlast + ' ETH');
-                } else {
-                    return colors.blue('WATCHING: '
-                        + c.shortHand
-                        + ' | Sentiment: '
-                        + c.sentiment + ' | '
-                        + c.btclast + ' BTC | '
-                        + c.usdlast + ' USD | '
-                        + c.ethlast + ' ETH');
-                }
+        console.log(colors.grey(new Date() + ':'));
+        var sortedCurrencies = createRankedList(currencies);
+        if (sortedCurrencies.length) {
+            sortedCurrencies.forEach(sc => {
+                console.log(sc);
             });
-
-        sortedCurrencies.forEach(sc => {
-            console.log(sc);
-        });
-
-        //trade
-        currencies
-            .map((c) => {
-                CurrentlyBought.findOne({ shortHand: c.shortHand }, (boughtCur) => {
-                    if (c.sentiment > 10) {
-                        // console.log('\u0007');
-                        if (!boughtCur) {
-                            Trade.insert({ action: 'BUY', shortHand: c.shortHand, usdlast: c.btclast });
-                            CurrentlyBought.insert({ shortHand: c.shortHand });
-                            console.log('');
-                            console.log(colors.red('**************************************************'));
-                            console.log(colors.red('BUY ' + c.shortHand + ' for ' + c.btclast + ' BTC'));
-                            console.log(colors.red('**************************************************'));
-                        }
-                    } else if (c.sentiment <= 0 && boughtCur && c.btclast > boughtCur.btclast) {
-                        // console.log('\u0007');
-                        Trade.insert({ action: 'SELL', shortHand: c.shortHand, usdlast: c.btclast });
-                        CurrentlyBought.insert({ shortHand: c.shortHand });
-                        console.log('');
-                        console.log(colors.green('**************************************************'));
-                        console.log(colors.green('SELL ' + c.shortHand + ' for ' + c.btclast + ' BTC'));
-                        console.log(colors.green('**************************************************'));
-                    }
-                });
-
-            });
-
-        console.log('');
+        } else {
+            console.log(colors.blue('WAITING'));
+        }
     });
 }, 1000);
