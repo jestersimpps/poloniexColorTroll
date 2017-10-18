@@ -14,6 +14,7 @@ bye
 crashed
 bubble
 dying
+short
 fall
 overrated
 floor
@@ -23,3 +24,4 @@ selling
 resistance
 bear
 trap
+steam

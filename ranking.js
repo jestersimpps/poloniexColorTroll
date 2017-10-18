@@ -66,6 +66,11 @@ refreshCurrencies = (error, response, body) => {
     }
 }
 
+round = (number, decimals) => {
+    var num = number ? +number : 0;
+    return num.toFixed(decimals).toString();;
+}
+
 createRankedList = (currencies) => {
     return currencies
         .sort((a, b) => {
@@ -75,35 +80,44 @@ createRankedList = (currencies) => {
             return c.sentiment;
         })
         .map((c) => {
+            var btc = c.btcLastTrend === 'UP' ? colors.green('∆ ' + round(c.btcLast,8)) : c.btcLastTrend === '-' ? colors.blue('▷ ' + round(c.btcLast,8)) : colors.red('∇ ' + round(c.btcLast,8));
+            var eth = c.ethLastTrend === 'UP' ? colors.green('∆ ' + round(c.ethLast,8)) : c.ethLastTrend === '-' ? colors.blue('▷ ' + round(c.ethLast,8)) : colors.red('∇ ' + round(c.ethLast,8));
+            var usd = c.usdLastTrend === 'UP' ? colors.green('∆ ' + round(c.usdLast,8)) : c.usdLastTrend === '-' ? colors.blue('▷ ' + round(c.usdLast,8)) : colors.red('∇ ' + round(c.usdLast,8));
+            var sentiment = 0;
+            var shortHand = colors.blue(c.shortHand);
+            if (c.sentiment > 0) {
+                shortHand = colors.green(c.shortHand);
+                sentiment = colors.green('+' + c.sentiment);
+            } else {
+                shortHand = colors.red(c.shortHand);
+                sentiment = colors.red(c.sentiment);
+            }
             if (c.sentiment > 10) {
                 // console.log('\u0007');
-                return colors.green('PUMPING: '
-                    + c.shortHand
+                return colors.green('∆ PUMPING: '
+                    + shortHand
                     + ' | Sentiment: '
-                    + c.sentiment + ' | '
-                    + c.btcLast + ' BTC | '
-                    + c.usdLast + ' USD | '
-                    + c.ethLast + ' ETH');
+                    + sentiment + ' | '
+                    + btc + ' BTC | '
+                    + eth + ' USD | '
+                    + usd + ' ETH');
             } else if (c.sentiment < -5) {
                 // console.log('\u0007');
-                return colors.red('DUMPING: '
-                    + c.shortHand
+                return colors.red('∇ DUMPING: '
+                    + shortHand
                     + ' | Sentiment: '
-                    + c.sentiment + ' | '
-                    + c.btcLast + ' BTC | '
-                    + c.usdLast + ' USD | '
-                    + c.ethLast + ' ETH');
-            } else {
-                var btc = c.btcLastTrend === 'UP' ? colors.green(c.btcLast) : c.btcLastTrend === '-' ? colors.blue(c.btcLast) : colors.red(c.btcLast);
-                var eth = c.ethLastTrend === 'UP' ? colors.green(c.ethLast) : c.ethLastTrend === '-' ? colors.blue(c.ethLast) : colors.red(c.ethLast);
-                var usd = c.usdLastTrend === 'UP' ? colors.green(c.usdLast) : c.usdLastTrend === '-' ? colors.blue(c.usdLast) : colors.red(c.usdLast);
-                return colors.blue('WATCHING: '
-                    + c.shortHand
-                    + ' | Sentiment: '
-                    + c.sentiment + ' | '
+                    + sentiment + ' | '
                     + btc + ' BTC | '
-                    + c.usdLast + ' USD | '
-                    + c.ethLast + ' ETH');
+                    + eth + ' USD | '
+                    + usd + ' ETH');
+            } else {
+                return colors.yellow('▷ WATCHING: '
+                    + shortHand
+                    + ' | Sentiment: '
+                    + sentiment + ' | '
+                    + btc + ' BTC | '
+                    + eth + ' USD | '
+                    + usd + ' ETH');
             }
         });
 }
@@ -114,14 +128,14 @@ setInterval(() => {
     request({ url: 'https://poloniex.com/public?command=returnTicker' }, refreshCurrencies);
 
     Currency.find({}, (err, currencies) => {
+        process.stdout.write('\033c');
+        console.log('');
         console.log(colors.grey(new Date() + ':'));
         var sortedCurrencies = createRankedList(currencies);
         if (sortedCurrencies.length) {
             sortedCurrencies.forEach(sc => {
                 console.log(sc);
             });
-        } else {
-            console.log(colors.blue('WAITING'));
         }
     });
 }, 1000);

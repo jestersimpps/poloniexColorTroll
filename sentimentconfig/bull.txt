@@ -19,12 +19,16 @@ bull
 explode
 high
 climbing
+bounce
+huge
 running
 pumping
+best
 wow
 bottom
 creeping
 volume
+hot
 flying
 raise
 rise
@@ -43,3 +47,5 @@ skyrocketing
 crawling
 rocket
 buying
+movin
+moving

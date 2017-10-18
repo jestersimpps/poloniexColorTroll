@@ -20,6 +20,17 @@ var connection = new autobahn.Connection({
     realm: "realm1"
 });
 
+var currencyNamesArray = [];
+var currencyObjects = [];
+
+Currency.find({}, (err, cObjs) => {
+    if (err) return console.log(err);
+    currencyNamesArray = getCurrencyNamesArray(cObjs);
+    currencyObjects = cObjs;
+    console.log(currencyObjects.length + ' Currencies found in db');
+});
+
+process.stdout.write('\033c');
 
 getCurrencyNamesArray = (currencyObjects) => {
     var names = [];
@@ -36,6 +47,7 @@ normalizeName = (name) => {
     return name;
 }
 
+
 colorStrings = (words, name) => {
 
     var name = normalizeName(name);
@@ -43,63 +55,68 @@ colorStrings = (words, name) => {
     var wordsArray = words.split(/[\s,.\/?!+-]+/);
     var sentence = '';
     var sentenceCurrencies = [];
-    var currencyNamesArray = [];
 
-    Currency.find({}, (err, currencyObjects) => {
-        currencyNamesArray = getCurrencyNamesArray(currencyObjects);
-        return currencyObjects;
-    }).then((currencyObjects) => {
-        wordsArray.forEach(word => {
-            var lowerCaseWord = word.toLowerCase();
-            if (neutral.includes(lowerCaseWord)) {
-                sentence += word.blue;
-            }
-            else if (bull.includes(lowerCaseWord)) {
-                sentence += word.green;
-                sentimentScore += 3;
-            }
-            else if (bear.includes(lowerCaseWord)) {
-                sentence += word.red;
-                sentimentScore -= 3;
-            }
-            else if (currencyNamesArray.includes(lowerCaseWord)) {
-                sentence += word.bold.yellow.underline;
-                decreaseSentiment(lowerCaseWord, currencyObjects);
-                sentenceCurrencies.push(lowerCaseWord);
-            } else {
-                sentence += word;
-            }
-            sentence += ' ';
-        });
-        return {
-            sentence: sentence,
-            currencyObjects: currencyObjects,
-            sentimentScore: sentimentScore,
-            sentenceCurrencies: sentenceCurrencies
-        };
-    }).then((data) => {
-        data.sentenceCurrencies.forEach(sc => {
-            var currencyObject = data.currencyObjects.filter(c => {
-                return c.lowerCase === sc;
-            });
-            var sentiment = currencyObject.length ? currencyObject[0].sentiment : 0;
-            data.sentence += generateSentiment(sc, sentiment, data.sentimentScore);
-        });
-        console.log(name + data.sentence);
+    wordsArray.forEach(word => {
+        var lowerCaseWord = word.toLowerCase();
+        if (neutral.includes(lowerCaseWord)) {
+            sentence += word.blue;
+        }
+        else if (bull.includes(lowerCaseWord)) {
+            sentence += word.green;
+            sentimentScore += 3;
+        }
+        else if (bear.includes(lowerCaseWord)) {
+            sentence += word.red;
+            sentimentScore -= 3;
+        }
+        else if (currencyNamesArray.includes(lowerCaseWord)) {
+            sentence += word.bold.yellow.underline;
+            sentenceCurrencies.push(lowerCaseWord);
+        } else {
+            sentence += word;
+        }
+        sentence += ' ';
     });
+
+    sentenceCurrencies.forEach(sc => {
+        var currencyObject = getCurrencyObject(sc);
+        if (sentimentScore) {
+            decreaseSentiment(currencyObject);
+        }
+        sentence += generateSentiment(currencyObject, sentimentScore);
+    });
+
+    console.log(name + sentence);
+}
+
+getCurrencyObject = (lowerCaseWord) => {
+    return currencyObjects.filter(c => {
+        return c.lowerCase === lowerCaseWord || c.fullName === lowerCaseWord || c.fullName + 's' === lowerCaseWord;
+    })[0];
 }
 
 
-generateSentiment = (lowerCaseWord, currentSentiment, sentimentScore) => {
+generateSentiment = (currencyObject, sentimentScore) => {
+    if (sentimentScore > 5) {
+        sentimentScore = 5;
+    }
+    if (sentimentScore < -5) {
+        sentimentScore = -5;
+    }
+    var currentSentiment = currencyObject.length ? currencyObject.sentiment : 0;
     var newSentiment = parseInt(currentSentiment + sentimentScore);
     var sentimentPart = ' ('
-        + lowerCaseWord.bold
+        + currencyObject.shortHand.bold
         + ': '
         + colorSentiment(newSentiment)
         + ') ';
-    if (newSentiment < 21 && newSentiment > -21) {
-        storeSentiment(lowerCaseWord, newSentiment);
+    if (newSentiment > 21) {
+        newSentiment = 20;
     }
+    if (newSentiment < -20) {
+        newSentiment = -20;
+    }
+    storeSentiment(currencyObject, newSentiment);
     if (newSentiment < 0) {
         return colors.italic.red(sentimentPart);
     } else if (newSentiment > 0) {
@@ -110,19 +127,24 @@ generateSentiment = (lowerCaseWord, currentSentiment, sentimentScore) => {
 }
 
 
-decreaseSentiment = (lowerCaseWord, currencyObjects) => {
-    currencyObjects.forEach(c => {
-        if (c.lowerCase != lowerCaseWord) {
-            var change = c.sentiment;
-            if (c.sentiment < 0) {
-                change = c.sentiment + 1;
-            } else if (c.sentiment > 0) {
-                change = c.sentiment - 1;
+decreaseSentiment = (currencyObject) => {
+    Currency.find({}, (err, currencies) => {
+        currencyObjects = currencies;
+        currencyObjects.filter(co => {
+            return co.sentiment;
+        }).forEach(fco => {
+            if (fco.lowerCase != currencyObject.lowerCase) {
+                var change = fco.sentiment;
+                if (fco.sentiment < 0) {
+                    change = fco.sentiment + 1;
+                } else if (fco.sentiment > 0) {
+                    change = fco.sentiment - 1;
+                }
+                Currency.findByIdAndUpdate(fco._id, { sentiment: change }, { upsert: false }, (err, doc) => {
+                    if (err) return console.log(err);
+                });
             }
-            Currency.update({ lowerCase: c.lowerCase }, { sentiment: change }, { upsert: false }, (err, doc) => {
-                if (err) return console.log(err);
-            });
-        }
+        })
     })
 }
 
@@ -136,11 +158,8 @@ colorSentiment = (sentiment) => {
     }
 }
 
-storeSentiment = (lowerCaseWord, newSentiment) => {
-    Currency.update({ fullName: lowerCaseWord }, { sentiment: newSentiment }, { upsert: false }, (err, doc) => {
-        if (err) return console.log(err);
-    });
-    Currency.update({ lowerCase: lowerCaseWord }, { sentiment: newSentiment }, { upsert: false }, (err, doc) => {
+storeSentiment = (currencyObject, newSentiment) => {
+    Currency.findByIdAndUpdate(currencyObject._id, { sentiment: newSentiment }, { upsert: false }, (err, doc) => {
         if (err) return console.log(err);
     });
 }
